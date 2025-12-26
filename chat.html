@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Chat with our AI assistant to discover NGOs across Tamil Nadu. Get instant recommendations and detailed information.">
+    <title>Chat Now - Tamil Nadu NGO Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🤝</div>
+                    <span>TN NGO Connect</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="features.html" class="nav-link">Features</a></li>
+                    <li><a href="categories.html" class="nav-link">Categories</a></li>
+                    <li><a href="chat.html" class="nav-link active">Chat Now</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Chat Page Header -->
+    <section class="chat-page-header">
+        <div class="container">
+            <div class="chat-header-content">
+                <span class="section-badge">💬 AI Assistant</span>
+                <h1>Chat with Our NGO Assistant</h1>
+                <p class="page-subtitle">
+                    வணக்கம்! Ask me anything about NGOs in Tamil Nadu. I can help you find organizations
+                    by category, location, or specific needs. Let's make a difference together!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Chat Section -->
+    <section class="chat-main-section">
+        <div class="container">
+            <div class="chat-layout">
+                <!-- Sidebar with Quick Actions -->
+                <div class="chat-sidebar">
+                    <div class="chat-sidebar-card">
+                        <h3>🚀 Quick Start</h3>
+                        <p>Try these popular queries:</p>
+                        <div class="quick-queries">
+                            <button class="quick-query-btn" onclick="sendQuickReply('Show me education NGOs')">
+                                📚 Education NGOs
+                            </button>
+                            <button class="quick-query-btn" onclick="sendQuickReply('Healthcare organizations')">
+                                🏥 Healthcare NGOs
+                            </button>
+                            <button class="quick-query-btn" onclick="sendQuickReply('NGOs in Chennai')">
+                                📍 NGOs in Chennai
+                            </button>
+                            <button class="quick-query-btn" onclick="sendQuickReply('Environment NGOs')">
+                                🌱 Environment NGOs
+                            </button>
+                            <button class="quick-query-btn" onclick="sendQuickReply('How can I volunteer?')">
+                                🤝 How to Volunteer
+                            </button>
+                            <button class="quick-query-btn" onclick="sendQuickReply('Women empowerment NGOs')">
+                                👩 Women Empowerment
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-sidebar-card">
+                        <h3>💡 Tips</h3>
+                        <ul class="chat-tips">
+                            <li>Ask in Tamil or English</li>
+                            <li>Be specific about your interests</li>
+                            <li>Mention your district for local NGOs</li>
+                            <li>Ask about volunteering or donating</li>
+                        </ul>
+                    </div>
+
+                    <div class="chat-sidebar-card">
+                        <h3>📊 Coverage</h3>
+                        <div class="coverage-stats">
+                            <div class="coverage-item">
+                                <span class="coverage-number">500+</span>
+                                <span class="coverage-label">NGOs</span>
+                            </div>
+                            <div class="coverage-item">
+                                <span class="coverage-number">38</span>
+                                <span class="coverage-label">Districts</span>
+                            </div>
+                            <div class="coverage-item">
+                                <span class="coverage-number">8</span>
+                                <span class="coverage-label">Categories</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Chat Interface -->
+                <div class="chat-main">
+                    <div class="chatbot-container chat-page-container">
+                        <div class="chatbot-header">
+                            <div class="chatbot-avatar">🤖</div>
+                            <div class="chatbot-info">
+                                <h3>NGO Assistant</h3>
+                                <div class="chatbot-status">
+                                    <span class="status-dot"></span>
+                                    <span>Online & Ready to Help</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chatbot-messages" id="chatMessages">
+                            <div class="message bot">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-content">
+                                    <p class="message-text">
+                                        வணக்கம்! 🙏 Hello! I'm your NGO assistant for Tamil Nadu. I can help you
+                                        discover amazing organizations
+                                        working across all 38 districts in 8 different categories.
+                                        <br><br>
+                                        What would you like to know today?
+                                    </p>
+                                    <div class="quick-replies">
+                                        <button class="quick-reply"
+                                            onclick="sendQuickReply('Show me education NGOs')">Education NGOs
+                                            📚</button>
+                                        <button class="quick-reply"
+                                            onclick="sendQuickReply('Healthcare organizations')">Healthcare 🏥</button>
+                                        <button class="quick-reply" onclick="sendQuickReply('NGOs in Chennai')">NGOs in
+                                            Chennai 📍</button>
+                                        <button class="quick-reply"
+                                            onclick="sendQuickReply('How can I volunteer?')">Volunteer Info 🤝</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="chatbot-input-area">
+                            <input type="text" class="chatbot-input" id="chatInput"
+                                placeholder="Type your message here... (Tamil or English)"
+                                onkeypress="handleKeyPress(event)">
+                            <button class="send-button" onclick="sendMessage()">
+                                <span>➤</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Banner -->
+    <section class="section" style="background: white; padding: 3rem 0;">
+        <div class="container">
+            <div class="chat-features-banner">
+                <div class="chat-feature-item">
+                    <div class="chat-feature-icon">⚡</div>
+                    <h4>Instant Responses</h4>
+                    <p>Get answers in seconds</p>
+                </div>
+                <div class="chat-feature-item">
+                    <div class="chat-feature-icon">🌐</div>
+                    <h4>Bilingual Support</h4>
+                    <p>Tamil & English</p>
+                </div>
+                <div class="chat-feature-item">
+                    <div class="chat-feature-icon">✅</div>
+                    <h4>Verified Info</h4>
+                    <p>Accurate & up-to-date</p>
+                </div>
+                <div class="chat-feature-item">
+                    <div class="chat-feature-icon">🎯</div>
+                    <h4>Smart Matching</h4>
+                    <p>Personalized recommendations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">❓ Common Questions</span>
+                <h2>Frequently Asked Questions</h2>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>What can I ask the chatbot?</h4>
+                    <p>You can ask about NGOs by category (education, healthcare, etc.), location (any district in Tamil
+                        Nadu),
+                        how to volunteer, donation information, and specific organization details.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Can I chat in Tamil?</h4>
+                    <p>Yes! Our chatbot understands both Tamil and English. Feel free to communicate in whichever
+                        language
+                        you're most comfortable with.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>How do I find NGOs in my district?</h4>
+                    <p>Simply mention your district name in your message. For example: "Show me NGOs in Coimbatore" or
+                        "Healthcare organizations in Madurai".</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Are all NGOs verified?</h4>
+                    <p>Yes! All NGOs in our database are thoroughly verified for authenticity and credibility. We ensure
+                        all contact information and details are accurate and up-to-date.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>How can I volunteer or donate?</h4>
+                    <p>Ask the chatbot "How can I volunteer?" or "How to donate?" and it will provide you with detailed
+                        information and direct contact details for the NGOs you're interested in.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Is my conversation private?</h4>
+                    <p>Absolutely! Your conversations are completely private and secure. We don't store or share any
+                        personal information from your chats.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tamil Nadu NGO Connect</h4>
+                    <p>Empowering communities through meaningful connections. Discover, support, and volunteer with
+                        verified NGOs across Tamil Nadu.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="chat.html">Chat Now</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul class="footer-links">
+                        <li><a href="categories.html#education">Education</a></li>
+                        <li><a href="categories.html#healthcare">Healthcare</a></li>
+                        <li><a href="categories.html#environment">Environment</a></li>
+                        <li><a href="categories.html#women">Women Empowerment</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <p>Have questions? We're here to help!</p>
+                    <p>📧 contact@tnngoconnect.org</p>
+                    <p>📱 +91 98765 43210</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tamil Nadu NGO Connect. Made with ❤️ for the people of Tamil Nadu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
