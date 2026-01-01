@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>NGO Chatbot API Test</h1>
+    <input type="text" id="testMessage" placeholder="Enter a message" value="Show me education NGOs">
+    <button onclick="testAPI()">Test API</button>
+    <pre id="result"></pre>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        async function testAPI() {
+            const message = document.getElementById('testMessage').value;
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                resultDiv.textContent = 'Sending request...';
+                const response = await fetch(`${API_BASE_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.textContent = 'ERROR: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

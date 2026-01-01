@@ -1,0 +1,45 @@
+﻿const express = require('express');
+const router = express.Router();
+const ChatLog = require('../models/ChatLog.model');
+const NGO = require('../models/NGO.model');
+const { getGeminiResponse, getSmartSuggestions } = require('../gemini');
+
+// POST - Process chat message and get response
+router.post('/message', async (req, res) => {
+    try {
+        const { message, sessionId } = req.body;
+
+        if (!message || !sessionId) {
+            return res.status(400).json({
+                success: false,
+                message: 'Message and sessionId are required'
+            });
+        }
+
+        // Process message and generate response
+        const response = await processMessage(message);
+
+        // Save chat log
+        const chatLog = new ChatLog({
+            sessionId,
+            userMessage: message,
+            botResponse: response.text,
+            category: response.category,
+            district: response.district,
+            ngosRecommended: response.ngos ? response.ngos.map(ngo => ngo._id) : []
+        });
+
+        await chatLog.save();
+
+        res.json({
+            success: true,
+            data: {
+                response: response.text,
+                ngos: response.ngos,
+                quickReplies: response.quickReplies
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});

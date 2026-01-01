@@ -4,28 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Learn about Tamil Nadu NGO Connect - Our mission, vision, and commitment to connecting communities with meaningful causes.">
-    <title>About Us - Tamil Nadu NGO Connect</title>
+    <title>About - Tamil Nadu NGO Connect</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>">
+    <style>
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .about-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            transition: var(--transition);
+        }
+
+        .about-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .about-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .about-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .goals-list {
+            list-style: none;
+            margin-top: var(--spacing-lg);
+        }
+
+        .goals-list li {
+            padding: var(--spacing-md);
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+        }
+
+        .goals-list li::before {
+            content: "→";
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .tech-badge {
+            padding: 0.5rem 1rem;
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="container">
             <div class="navbar-content">
                 <a href="index.html" class="logo">
-                    <div class="logo-icon">🤝</div>
-                    <span>TN NGO Connect</span>
+                    🤝 TN NGO Connect
                 </a>
                 <ul class="nav-links">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="features.html" class="nav-link">Features</a></li>
                     <li><a href="categories.html" class="nav-link">Categories</a></li>
-                    <li><a href="chat.html" class="nav-link">Chat Now</a></li>
+                    <li><a href="chat.html" class="nav-link">Chat</a></li>
                     <li><a href="about.html" class="nav-link active">About</a></li>
                 </ul>
             </div>
@@ -33,329 +104,179 @@
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header about-header">
+    <section class="hero">
         <div class="container">
-            <div class="page-header-content">
-                <span class="section-badge">🌟 About Us</span>
-                <h1>Building Bridges Between Hearts and Causes</h1>
-                <p class="page-subtitle">
-                    We believe in the power of unity and collective action to transform lives across Tamil Nadu.
-                    Our mission is to make social impact accessible to everyone.
-                </p>
-            </div>
+            <h1>About This Project</h1>
+            <p class="hero-description">
+                A student project aimed at making it easier to discover and connect
+                with NGOs across Tamil Nadu through AI-powered search.
+            </p>
         </div>
     </section>
 
-    <!-- Mission Section -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="mission-grid">
-                <div class="mission-content">
-                    <span class="section-badge">🎯 Our Mission</span>
-                    <h2>Empowering Communities Through Connection</h2>
-                    <p>
-                        Tamil Nadu NGO Connect was born from a simple yet powerful idea: what if finding and supporting
-                        NGOs was as easy as having a conversation? We recognized that while Tamil Nadu has hundreds of
-                        incredible organizations doing transformative work, many people struggle to discover them.
-                    </p>
-                    <p>
-                        Our mission is to bridge this gap by creating an intelligent, accessible platform that connects
-                        compassionate individuals with verified NGOs across all 38 districts of Tamil Nadu. We leverage
-                        AI technology to make this connection seamless, instant, and meaningful.
-                    </p>
-                    <p>
-                        We believe that every person has the potential to make a difference, and every NGO deserves to
-                        be discovered by those who share their vision. Through our platform, we're making social impact
-                        accessible to everyone.
-                    </p>
-                </div>
-                <div class="mission-visual">
-                    <div class="mission-card">
-                        <div class="mission-icon">🤝</div>
-                        <h3>Unity</h3>
-                        <p>Bringing together individuals and organizations for collective impact</p>
-                    </div>
-                    <div class="mission-card">
-                        <div class="mission-icon">💡</div>
-                        <h3>Innovation</h3>
-                        <p>Using AI technology to make social good accessible to all</p>
-                    </div>
-                    <div class="mission-card">
-                        <div class="mission-icon">❤️</div>
-                        <h3>Compassion</h3>
-                        <p>Driven by empathy and commitment to positive change</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Vision & Values -->
-    <section class="section vision-section">
-        <div class="container">
-            <div class="vision-content">
-                <div class="vision-item">
-                    <div class="vision-icon">🎯</div>
-                    <h2>Our Vision</h2>
-                    <p>
-                        A connected Tamil Nadu where every cause finds its champions, every NGO reaches its supporters,
-                        and every individual can easily contribute to positive social change. We envision a future where
-                        technology and compassion work hand-in-hand to create lasting impact.
-                    </p>
-                </div>
-
-                <div class="vision-item">
-                    <div class="vision-icon">💪</div>
-                    <h2>Our Values</h2>
-                    <div class="values-grid">
-                        <div class="value-card">
-                            <h4>🔍 Transparency</h4>
-                            <p>We verify every NGO and provide accurate, honest information</p>
-                        </div>
-                        <div class="value-card">
-                            <h4>🤝 Unity</h4>
-                            <p>We believe in the power of collective action and community</p>
-                        </div>
-                        <div class="value-card">
-                            <h4>⚡ Accessibility</h4>
-                            <p>Social impact should be easy and available to everyone</p>
-                        </div>
-                        <div class="value-card">
-                            <h4>🌱 Empowerment</h4>
-                            <p>We empower both NGOs and individuals to create change</p>
-                        </div>
-                        <div class="value-card">
-                            <h4>🎯 Excellence</h4>
-                            <p>We strive for the highest quality in everything we do</p>
-                        </div>
-                        <div class="value-card">
-                            <h4>❤️ Compassion</h4>
-                            <p>Empathy and care drive all our decisions and actions</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- What We Do -->
-    <section class="section" style="background: white;">
+    <!-- Project Aim -->
+    <section class="section" style="padding-top: 0;">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">💼 What We Do</span>
-                <h2>How We're Making a Difference</h2>
+                <h2>Our Aim</h2>
+                <p>Building a bridge between people who want to help and organizations that need support</p>
             </div>
 
-            <div class="what-we-do-grid">
-                <div class="what-we-do-card">
-                    <div class="what-icon">🔍</div>
-                    <h3>Curate & Verify</h3>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-card-icon">🎯</div>
+                    <h3>Simplify Discovery</h3>
                     <p>
-                        We carefully research, verify, and curate a comprehensive database of NGOs across Tamil Nadu.
-                        Every organization goes through our rigorous verification process to ensure authenticity and
-                        credibility.
+                        Make it easy for anyone to find NGOs working in their area of interest
+                        or location through an intelligent chatbot interface.
                     </p>
                 </div>
 
-                <div class="what-we-do-card">
-                    <div class="what-icon">🤖</div>
-                    <h3>Intelligent Matching</h3>
+                <div class="about-card">
+                    <div class="about-card-icon">🤖</div>
+                    <h3>AI-Powered Assistance</h3>
                     <p>
-                        Our AI-powered chatbot understands your interests, location, and preferences to recommend the
-                        most relevant NGOs. It's like having a personal guide to social impact.
+                        Use conversational AI to understand user needs and provide relevant
+                        NGO recommendations in both Tamil and English.
                     </p>
                 </div>
 
-                <div class="what-we-do-card">
-                    <div class="what-icon">🌐</div>
-                    <h3>Bridge the Gap</h3>
+                <div class="about-card">
+                    <div class="about-card-icon">📍</div>
+                    <h3>Complete Coverage</h3>
                     <p>
-                        We connect individuals with NGOs through detailed information, direct contact details, and
-                        guidance on how to volunteer, donate, or support their work.
-                    </p>
-                </div>
-
-                <div class="what-we-do-card">
-                    <div class="what-icon">📊</div>
-                    <h3>Share Impact</h3>
-                    <p>
-                        We showcase the real-world impact of NGOs through statistics, success stories, and updates,
-                        helping you see the difference your support can make.
+                        Create a comprehensive database of NGOs across all 38 districts
+                        of Tamil Nadu, organized by category and location.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Our Impact -->
-    <section class="section our-impact-section">
+    <!-- Future Goals -->
+    <section class="section" style="background: var(--bg-light);">
         <div class="container">
             <div class="section-header">
-                <span class="section-badge">📈 Our Impact</span>
-                <h2>The Difference We're Making Together</h2>
-                <p>Through our platform, we're facilitating connections that create real change</p>
+                <h2>Future Goals</h2>
+                <p>What we plan to build and improve</p>
             </div>
 
-            <div class="impact-stats-grid">
-                <div class="impact-stat-card">
-                    <div class="impact-stat-icon">🏢</div>
-                    <div class="impact-stat-number">500+</div>
-                    <div class="impact-stat-label">Verified NGOs</div>
-                    <p>Organizations across 8 major categories</p>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-card-icon">🔍</div>
+                    <h3>Enhanced Search</h3>
+                    <ul class="goals-list">
+                        <li>Advanced filtering by impact area, size, and reach</li>
+                        <li>Search by specific causes or beneficiary groups</li>
+                        <li>Multi-language support beyond Tamil and English</li>
+                    </ul>
                 </div>
 
-                <div class="impact-stat-card">
-                    <div class="impact-stat-icon">📍</div>
-                    <div class="impact-stat-number">38</div>
-                    <div class="impact-stat-label">Districts Covered</div>
-                    <p>Complete coverage of Tamil Nadu</p>
+                <div class="about-card">
+                    <div class="about-card-icon">📊</div>
+                    <h3>Data & Insights</h3>
+                    <ul class="goals-list">
+                        <li>Real-time NGO impact metrics and updates</li>
+                        <li>Transparency reports and financial information</li>
+                        <li>Success stories and case studies</li>
+                    </ul>
                 </div>
 
-                <div class="impact-stat-card">
-                    <div class="impact-stat-icon">💬</div>
-                    <div class="impact-stat-number">10K+</div>
-                    <div class="impact-stat-label">Conversations</div>
-                    <p>Helping people find the right NGOs</p>
-                </div>
-
-                <div class="impact-stat-card">
-                    <div class="impact-stat-icon">🤝</div>
-                    <div class="impact-stat-number">5K+</div>
-                    <div class="impact-stat-label">Connections Made</div>
-                    <p>Individuals connected with NGOs</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Our Commitment -->
-    <section class="section" style="background: white;">
-        <div class="container">
-            <div class="commitment-section">
-                <div class="commitment-content">
-                    <span class="section-badge">🌟 Our Commitment</span>
-                    <h2>What We Promise</h2>
-                    <div class="commitment-list">
-                        <div class="commitment-item">
-                            <div class="commitment-icon">✅</div>
-                            <div class="commitment-text">
-                                <h4>Verified Information</h4>
-                                <p>Every NGO in our database is thoroughly verified. We ensure all information is
-                                    accurate,
-                                    up-to-date, and trustworthy.</p>
-                            </div>
-                        </div>
-
-                        <div class="commitment-item">
-                            <div class="commitment-icon">🔒</div>
-                            <div class="commitment-text">
-                                <h4>Privacy & Security</h4>
-                                <p>Your conversations are private and secure. We never share your personal information
-                                    or
-                                    chat history with anyone.</p>
-                            </div>
-                        </div>
-
-                        <div class="commitment-item">
-                            <div class="commitment-icon">🆓</div>
-                            <div class="commitment-text">
-                                <h4>Always Free</h4>
-                                <p>Our platform is and will always be completely free to use. Social impact should never
-                                    have a price tag.</p>
-                            </div>
-                        </div>
-
-                        <div class="commitment-item">
-                            <div class="commitment-icon">🌐</div>
-                            <div class="commitment-text">
-                                <h4>Inclusive & Accessible</h4>
-                                <p>We support multiple languages and ensure our platform is accessible to everyone,
-                                    regardless of technical expertise.</p>
-                            </div>
-                        </div>
-
-                        <div class="commitment-item">
-                            <div class="commitment-icon">📱</div>
-                            <div class="commitment-text">
-                                <h4>Continuous Improvement</h4>
-                                <p>We're constantly updating our database, improving our AI, and adding new features to
-                                    serve you better.</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="about-card">
+                    <div class="about-card-icon">🤝</div>
+                    <h3>Community Features</h3>
+                    <ul class="goals-list">
+                        <li>Direct volunteer registration system</li>
+                        <li>Event calendar for NGO activities</li>
+                        <li>User reviews and ratings</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Join Us Section -->
-    <section class="section join-us-section">
+    <!-- Technology Stack -->
+    <section class="section">
         <div class="container">
-            <div class="join-us-content">
-                <h2>Join Us in Making a Difference</h2>
-                <p>
-                    Whether you're looking to volunteer, donate, or simply learn more about the incredible work
-                    being done across Tamil Nadu, we're here to help you take that first step.
-                </p>
-                <div class="join-us-stats">
-                    <div class="join-stat">
-                        <span class="join-icon">🎯</span>
-                        <span class="join-text">Find your cause</span>
-                    </div>
-                    <div class="join-stat">
-                        <span class="join-icon">🤝</span>
-                        <span class="join-text">Connect with NGOs</span>
-                    </div>
-                    <div class="join-stat">
-                        <span class="join-icon">💫</span>
-                        <span class="join-text">Create impact</span>
-                    </div>
+            <div class="section-header">
+                <h2>Built With</h2>
+                <p>Technologies powering this platform</p>
+            </div>
+
+            <div class="about-card" style="max-width: 800px; margin: 0 auto;">
+                <h3 style="margin-bottom: var(--spacing-md);">Frontend</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS3</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Vite</span>
                 </div>
-                <div class="btn-group" style="justify-content: center; margin-top: 2rem;">
-                    <a href="chat.html" class="btn btn-primary btn-lg">
-                        <span>Start Your Journey</span>
-                        <span>→</span>
-                    </a>
-                    <a href="categories.html" class="btn btn-secondary btn-lg">
-                        <span>Explore Categories</span>
-                        <span>📋</span>
-                    </a>
+
+                <h3 style="margin: var(--spacing-xl) 0 var(--spacing-md);">Backend</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Node.js</span>
+                    <span class="tech-badge">Express</span>
+                    <span class="tech-badge">MongoDB</span>
+                </div>
+
+                <h3 style="margin: var(--spacing-xl) 0 var(--spacing-md);">Features</h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">AI Chatbot</span>
+                    <span class="tech-badge">Bilingual Support</span>
+                    <span class="tech-badge">Responsive Design</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="section" style="background: white;">
+    <!-- Project Info -->
+    <section class="section" style="background: var(--bg-light);">
         <div class="container">
-            <div class="contact-section">
-                <div class="section-header">
-                    <span class="section-badge">📞 Get in Touch</span>
-                    <h2>We'd Love to Hear From You</h2>
-                    <p>Have questions, suggestions, or want to add your NGO to our platform? Reach out to us!</p>
+            <div class="section-header">
+                <h2>Project Information</h2>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="about-card-icon">👨‍💻</div>
+                    <h3>Development Status</h3>
+                    <p>
+                        This is an ongoing student project currently in active development.
+                        Features and data are being continuously improved and expanded.
+                    </p>
                 </div>
 
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-icon">📧</div>
-                        <h4>Email Us</h4>
-                        <p>contact@tnngoconnect.org</p>
-                        <p class="contact-note">We typically respond within 24 hours</p>
-                    </div>
+                <div class="about-card">
+                    <div class="about-card-icon">📝</div>
+                    <h3>Data Source</h3>
+                    <p>
+                        NGO information is curated from publicly available sources and
+                        verified to the best of our ability. We're working on expanding
+                        our database coverage.
+                    </p>
+                </div>
 
-                    <div class="contact-card">
-                        <div class="contact-icon">📱</div>
-                        <h4>Call Us</h4>
-                        <p>+91 98765 43210</p>
-                        <p class="contact-note">Monday to Friday, 9 AM - 6 PM</p>
-                    </div>
+                <div class="about-card">
+                    <div class="about-card-icon">💡</div>
+                    <h3>Feedback Welcome</h3>
+                    <p>
+                        We're constantly learning and improving. If you have suggestions
+                        or find any issues, please reach out to help us make this better.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <div class="contact-card">
-                        <div class="contact-icon">💬</div>
-                        <h4>Chat with Us</h4>
-                        <p>Use our AI assistant</p>
-                        <p class="contact-note">Available 24/7 for instant help</p>
-                    </div>
+    <!-- CTA Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Try the Platform</h2>
+                <p>Start exploring NGOs across Tamil Nadu</p>
+                <div class="btn-group" style="margin-top: 2rem;">
+                    <a href="chat.html" class="btn btn-primary">Chat with AI Assistant</a>
+                    <a href="categories.html" class="btn btn-secondary">Browse Categories</a>
                 </div>
             </div>
         </div>
@@ -367,41 +288,25 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Tamil Nadu NGO Connect</h4>
-                    <p>Empowering communities through meaningful connections. Discover, support, and volunteer with
-                        verified NGOs across Tamil Nadu.</p>
+                    <p>A student project for discovering NGOs across Tamil Nadu.</p>
                 </div>
-
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="features.html">Features</a></li>
                         <li><a href="categories.html">Categories</a></li>
-                        <li><a href="chat.html">Chat Now</a></li>
-                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="chat.html">Chat</a></li>
+                        <li><a href="about.html">About</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-section">
-                    <h4>Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="categories.html#education">Education</a></li>
-                        <li><a href="categories.html#healthcare">Healthcare</a></li>
-                        <li><a href="categories.html#environment">Environment</a></li>
-                        <li><a href="categories.html#women">Women Empowerment</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Connect With Us</h4>
-                    <p>Have questions? We're here to help!</p>
+                    <h4>Contact</h4>
                     <p>📧 contact@tnngoconnect.org</p>
                     <p>📱 +91 98765 43210</p>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2024 Tamil Nadu NGO Connect. Made with ❤️ for the people of Tamil Nadu.</p>
+                <p>&copy; 2024 Tamil Nadu NGO Connect. A student project.</p>
             </div>
         </div>
     </footer>

@@ -4,28 +4,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Explore NGOs by category - Education, Healthcare, Environment, Women Empowerment, and more across Tamil Nadu.">
     <title>Categories - Tamil Nadu NGO Connect</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>">
+    <style>
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .category-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+        }
+
+        .category-title h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .category-title p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .category-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .category-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            padding: var(--spacing-md) 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .category-stat {
+            text-align: center;
+        }
+
+        .category-stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .category-stat-label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .category-btn {
+            width: 100%;
+            padding: var(--spacing-md);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-btn:hover {
+            background: var(--primary-dark);
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="container">
             <div class="navbar-content">
                 <a href="index.html" class="logo">
-                    <div class="logo-icon">🤝</div>
-                    <span>TN NGO Connect</span>
+                    🤝 TN NGO Connect
                 </a>
                 <ul class="nav-links">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="features.html" class="nav-link">Features</a></li>
                     <li><a href="categories.html" class="nav-link active">Categories</a></li>
-                    <li><a href="chat.html" class="nav-link">Chat Now</a></li>
+                    <li><a href="chat.html" class="nav-link">Chat</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
                 </ul>
             </div>
@@ -33,344 +130,274 @@
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header">
+    <section class="hero">
         <div class="container">
-            <div class="page-header-content">
-                <span class="section-badge">🎯 Explore by Category</span>
-                <h1>Find NGOs by Their Focus Area</h1>
-                <p class="page-subtitle">
-                    Browse organizations working in various sectors to make a positive impact in Tamil Nadu.
-                    Click on any category to learn more and connect with NGOs.
-                </p>
-            </div>
+            <h1>Explore NGOs by Category</h1>
+            <p class="hero-description">
+                Browse organizations by their focus area. Each category represents
+                verified NGOs working to make a positive impact across Tamil Nadu.
+            </p>
         </div>
     </section>
 
     <!-- Categories Grid -->
-    <section class="section" style="background: white;">
+    <section class="section" style="padding-top: 0;">
         <div class="container">
-            <div class="categories-showcase">
-                <!-- Education Category -->
-                <div class="category-showcase-card" id="education">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 184, 140, 0.2)); color: #FF6B6B;">
-                            📚
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Education</h2>
-                            <p>Supporting learning and literacy across Tamil Nadu</p>
+            <div class="categories-grid">
+
+                <!-- Education -->
+                <div class="category-card" onclick="selectCategory('education')">
+                    <div class="category-header">
+                        <div class="category-icon">📚</div>
+                        <div class="category-title">
+                            <h3>Education</h3>
+                            <p>Learning & Literacy</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Education is the foundation of progress. These NGOs work tirelessly to provide quality
-                            education,
-                            mid-day meals, scholarships, and learning resources to children and adults across Tamil
-                            Nadu.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">2M+</span>
-                                <span class="stat-label">Students Reached</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">200+</span>
-                                <span class="stat-label">Schools Supported</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">15+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Supporting quality education, scholarships, and learning resources
+                        for children and adults across Tamil Nadu.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">2M+</span>
+                            <span class="category-stat-label">Students</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('education')">
-                            <span>Explore Education NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">200+</span>
+                            <span class="category-stat-label">Schools</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">15+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Education NGOs →</button>
                 </div>
 
-                <!-- Healthcare Category -->
-                <div class="category-showcase-card" id="healthcare">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(69, 183, 209, 0.2)); color: #4ECDC4;">
-                            🏥
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Healthcare</h2>
-                            <p>Improving health and wellness for all</p>
+                <!-- Healthcare -->
+                <div class="category-card" onclick="selectCategory('healthcare')">
+                    <div class="category-header">
+                        <div class="category-icon">🏥</div>
+                        <div class="category-title">
+                            <h3>Healthcare</h3>
+                            <p>Medical Support</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Access to quality healthcare is a fundamental right. These organizations provide medical
-                            care,
-                            surgeries, health camps, and support services to those who need it most.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">5M+</span>
-                                <span class="stat-label">Patients Treated</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">4M+</span>
-                                <span class="stat-label">Free Surgeries</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">12+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Providing medical care, surgeries, health camps, and support
+                        services to those who need it most.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">5M+</span>
+                            <span class="category-stat-label">Patients</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('healthcare')">
-                            <span>Explore Healthcare NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">4M+</span>
+                            <span class="category-stat-label">Surgeries</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">12+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Healthcare NGOs →</button>
                 </div>
 
-                <!-- Environment Category -->
-                <div class="category-showcase-card" id="environment">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(168, 230, 207, 0.2), rgba(107, 207, 127, 0.2)); color: #6BCF7F;">
-                            🌱
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Environment</h2>
-                            <p>Protecting our planet for future generations</p>
+                <!-- Environment -->
+                <div class="category-card" onclick="selectCategory('environment')">
+                    <div class="category-header">
+                        <div class="category-icon">🌱</div>
+                        <div class="category-title">
+                            <h3>Environment</h3>
+                            <p>Conservation & Sustainability</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Environmental conservation is critical for our survival. These NGOs work on tree plantation,
-                            water body restoration, wildlife conservation, and sustainable development initiatives.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">35M+</span>
-                                <span class="stat-label">Trees Planted</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">90+</span>
-                                <span class="stat-label">Lakes Restored</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">10+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Working on tree plantation, water body restoration, wildlife
+                        conservation, and sustainable development.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">35M+</span>
+                            <span class="category-stat-label">Trees</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('environment')">
-                            <span>Explore Environment NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">90+</span>
+                            <span class="category-stat-label">Lakes</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">10+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Environment NGOs →</button>
                 </div>
 
-                <!-- Women Empowerment Category -->
-                <div class="category-showcase-card" id="women">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(255, 143, 177, 0.2), rgba(177, 156, 217, 0.2)); color: #FF8FB1;">
-                            👩
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Women Empowerment</h2>
-                            <p>Empowering women and girls to reach their potential</p>
+                <!-- Women Empowerment -->
+                <div class="category-card" onclick="selectCategory('women')">
+                    <div class="category-header">
+                        <div class="category-icon">👩</div>
+                        <div class="category-title">
+                            <h3>Women Empowerment</h3>
+                            <p>Skills & Independence</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Women's empowerment drives social change. These organizations provide skills training,
-                            microfinance, health services, and advocacy for women's rights and economic independence.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">125K+</span>
-                                <span class="stat-label">Women Supported</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">25K+</span>
-                                <span class="stat-label">Entrepreneurs</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">8+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Providing skills training, microfinance, health services, and
+                        advocacy for women's rights and economic independence.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">125K+</span>
+                            <span class="category-stat-label">Women</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('women')">
-                            <span>Explore Women Empowerment NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">25K+</span>
+                            <span class="category-stat-label">Entrepreneurs</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">8+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Women Empowerment NGOs →</button>
                 </div>
 
-                <!-- Child Welfare Category -->
-                <div class="category-showcase-card" id="children">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(255, 217, 61, 0.2), rgba(255, 184, 140, 0.2)); color: #FFD93D;">
-                            👶
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Child Welfare</h2>
-                            <p>Caring for children's future and well-being</p>
+                <!-- Child Welfare -->
+                <div class="category-card" onclick="selectCategory('children')">
+                    <div class="category-header">
+                        <div class="category-icon">👶</div>
+                        <div class="category-title">
+                            <h3>Child Welfare</h3>
+                            <p>Care & Protection</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Every child deserves a safe and nurturing environment. These NGOs provide shelter,
-                            education,
-                            healthcare, and protection for orphaned, abandoned, and vulnerable children.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">200K+</span>
-                                <span class="stat-label">Children Supported</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">2K+</span>
-                                <span class="stat-label">In Care Homes</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">6+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Providing shelter, education, healthcare, and protection for
+                        orphaned, abandoned, and vulnerable children.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">200K+</span>
+                            <span class="category-stat-label">Children</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('children')">
-                            <span>Explore Child Welfare NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">2K+</span>
+                            <span class="category-stat-label">In Care</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">6+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Child Welfare NGOs →</button>
                 </div>
 
-                <!-- Elderly Care Category -->
-                <div class="category-showcase-card" id="elderly">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(177, 156, 217, 0.2), rgba(168, 230, 207, 0.2)); color: #B19CD9;">
-                            👴
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Elderly Care</h2>
-                            <p>Supporting senior citizens with dignity and respect</p>
+                <!-- Elderly Care -->
+                <div class="category-card" onclick="selectCategory('elderly')">
+                    <div class="category-header">
+                        <div class="category-icon">👴</div>
+                        <div class="category-title">
+                            <h3>Elderly Care</h3>
+                            <p>Senior Support</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Our elders deserve care and respect. These organizations provide healthcare, companionship,
-                            financial support, and advocacy for senior citizens across Tamil Nadu.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">55K+</span>
-                                <span class="stat-label">Seniors Supported</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">100+</span>
-                                <span class="stat-label">Care Centers</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">5+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Providing healthcare, companionship, financial support, and
+                        advocacy for senior citizens across Tamil Nadu.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">55K+</span>
+                            <span class="category-stat-label">Seniors</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('elderly')">
-                            <span>Explore Elderly Care NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">100+</span>
+                            <span class="category-stat-label">Centers</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">5+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Elderly Care NGOs →</button>
                 </div>
 
-                <!-- Disability Support Category -->
-                <div class="category-showcase-card" id="disability">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(69, 183, 209, 0.2), rgba(78, 205, 196, 0.2)); color: #45B7D1;">
-                            ♿
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Disability Support</h2>
-                            <p>Building inclusive communities for all</p>
+                <!-- Disability Support -->
+                <div class="category-card" onclick="selectCategory('disability')">
+                    <div class="category-header">
+                        <div class="category-icon">♿</div>
+                        <div class="category-title">
+                            <h3>Disability Support</h3>
+                            <p>Inclusion & Accessibility</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Inclusion is a right, not a privilege. These NGOs provide rehabilitation, education,
-                            skill training, and advocacy for persons with disabilities to lead independent lives.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">12K+</span>
-                                <span class="stat-label">Persons Supported</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">50+</span>
-                                <span class="stat-label">Programs</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">4+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Providing rehabilitation, education, skill training, and advocacy
+                        for persons with disabilities to lead independent lives.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">12K+</span>
+                            <span class="category-stat-label">Persons</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('disability')">
-                            <span>Explore Disability Support NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">50+</span>
+                            <span class="category-stat-label">Programs</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">4+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Disability Support NGOs →</button>
                 </div>
 
-                <!-- Rural Development Category -->
-                <div class="category-showcase-card" id="rural">
-                    <div class="category-showcase-header">
-                        <div class="category-showcase-icon"
-                            style="background: linear-gradient(135deg, rgba(107, 207, 127, 0.2), rgba(255, 217, 61, 0.2)); color: #6BCF7F;">
-                            🏘️
-                        </div>
-                        <div class="category-showcase-title">
-                            <h2>Rural Development</h2>
-                            <p>Transforming rural areas through sustainable development</p>
+                <!-- Rural Development -->
+                <div class="category-card" onclick="selectCategory('rural')">
+                    <div class="category-header">
+                        <div class="category-icon">🏘️</div>
+                        <div class="category-title">
+                            <h3>Rural Development</h3>
+                            <p>Community Growth</p>
                         </div>
                     </div>
-                    <div class="category-showcase-content">
-                        <p class="category-description">
-                            Rural development is key to inclusive growth. These NGOs work on livelihoods, agriculture,
-                            infrastructure, and community development in rural Tamil Nadu.
-                        </p>
-                        <div class="category-stats">
-                            <div class="category-stat">
-                                <span class="stat-value">5M+</span>
-                                <span class="stat-label">Families Reached</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">1000+</span>
-                                <span class="stat-label">Villages</span>
-                            </div>
-                            <div class="category-stat">
-                                <span class="stat-value">6+</span>
-                                <span class="stat-label">Active NGOs</span>
-                            </div>
+                    <p class="category-description">
+                        Working on livelihoods, agriculture, infrastructure, and
+                        community development in rural Tamil Nadu.
+                    </p>
+                    <div class="category-stats">
+                        <div class="category-stat">
+                            <span class="category-stat-value">5M+</span>
+                            <span class="category-stat-label">Families</span>
                         </div>
-                        <button class="btn btn-primary" onclick="selectCategory('rural')">
-                            <span>Explore Rural Development NGOs</span>
-                            <span>→</span>
-                        </button>
+                        <div class="category-stat">
+                            <span class="category-stat-value">1000+</span>
+                            <span class="category-stat-label">Villages</span>
+                        </div>
+                        <div class="category-stat">
+                            <span class="category-stat-value">6+</span>
+                            <span class="category-stat-label">NGOs</span>
+                        </div>
                     </div>
+                    <button class="category-btn">Explore Rural Development NGOs →</button>
                 </div>
+
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="section cta-section-alt">
+    <section class="section">
         <div class="container">
-            <div class="cta-content">
+            <div class="section-header">
                 <h2>Need Help Finding the Right NGO?</h2>
                 <p>Chat with our AI assistant for personalized recommendations</p>
-                <a href="chat.html" class="btn btn-primary btn-lg">
-                    <span>Start Chatting</span>
-                    <span>💬</span>
-                </a>
+                <div class="btn-group" style="margin-top: 2rem;">
+                    <a href="chat.html" class="btn btn-primary">Start Chatting →</a>
+                </div>
             </div>
         </div>
     </section>
@@ -381,41 +408,25 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Tamil Nadu NGO Connect</h4>
-                    <p>Empowering communities through meaningful connections. Discover, support, and volunteer with
-                        verified NGOs across Tamil Nadu.</p>
+                    <p>Empowering communities through meaningful connections.</p>
                 </div>
-
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="features.html">Features</a></li>
                         <li><a href="categories.html">Categories</a></li>
-                        <li><a href="chat.html">Chat Now</a></li>
-                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="chat.html">Chat</a></li>
+                        <li><a href="about.html">About</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-section">
-                    <h4>Categories</h4>
-                    <ul class="footer-links">
-                        <li><a href="categories.html#education">Education</a></li>
-                        <li><a href="categories.html#healthcare">Healthcare</a></li>
-                        <li><a href="categories.html#environment">Environment</a></li>
-                        <li><a href="categories.html#women">Women Empowerment</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Connect With Us</h4>
-                    <p>Have questions? We're here to help!</p>
+                    <h4>Contact</h4>
                     <p>📧 contact@tnngoconnect.org</p>
                     <p>📱 +91 98765 43210</p>
                 </div>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2024 Tamil Nadu NGO Connect. Made with ❤️ for the people of Tamil Nadu.</p>
+                <p>&copy; 2024 Tamil Nadu NGO Connect. Made with ❤️ for Tamil Nadu.</p>
             </div>
         </div>
     </footer>
