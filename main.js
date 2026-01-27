@@ -903,25 +903,25 @@ function removeTypingIndicator() {
 // Convert markdown to HTML
 function markdownToHtml(text) {
   if (!text) return '';
-  
+
   // Convert **bold** to <strong>bold</strong>
   text = text.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
-  
+
   // Convert *italic* to <em>italic</em>
   text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
-  
+
   // Convert ### Heading to <h3>Heading</h3>
   text = text.replace(/### ([^\n]+)/g, '<h3>$1</h3>');
-  
+
   // Convert ## Heading to <h2>Heading</h2>
   text = text.replace(/## ([^\n]+)/g, '<h2>$1</h2>');
-  
+
   // Convert # Heading to <h1>Heading</h1>
   text = text.replace(/# ([^\n]+)/g, '<h1>$1</h1>');
-  
+
   // Convert line breaks to <br>
   text = text.replace(/\n/g, '<br>');
-  
+
   return text;
 }
 
@@ -975,8 +975,8 @@ function addMessage(text, sender, quickReplies = null) {
 function processMessage(message) {
   const lowerMessage = message.toLowerCase();
 
-  // Greetings
-  if (lowerMessage.match(/^(hi|hello|hey|vanakkam|வணக்கம்)/)) {
+  // Greetings (using word boundaries to avoid matching "Which")
+  if (lowerMessage.match(/\b(hi|hello|hey|vanakkam|வணக்கம்)\b/)) {
     return {
       text: "வணக்கம்! 🙏 Hello! I'm here to help you discover amazing NGOs across Tamil Nadu. You can ask me about:\n\n• NGOs by category (education, healthcare, etc.)\n• NGOs in specific districts\n• How to volunteer or donate\n• Contact information for organizations\n\nWhat would you like to know?",
       quickReplies: [
@@ -1208,24 +1208,107 @@ function getNGOsByDistrict(district) {
 
 // Category selection from landing page
 function selectCategory(category) {
-  // Scroll to chatbot
-  document.getElementById('chatbot').scrollIntoView({ behavior: 'smooth' });
+  const chatbotElement = document.getElementById('chatbot');
+  const resultsSection = document.getElementById('category-results-section');
 
-  // Send category query after scroll
-  setTimeout(() => {
-    const categoryMessages = {
-      education: "Show me education NGOs",
-      healthcare: "Healthcare organizations",
-      environment: "Environment NGOs",
-      women: "Women empowerment NGOs",
-      children: "Child welfare NGOs",
-      elderly: "Elderly care NGOs",
-      disability: "Disability support NGOs",
-      rural: "Rural development NGOs"
-    };
+  if (chatbotElement) {
+    // Landing Page behavior: Scroll to chatbot
+    chatbotElement.scrollIntoView({ behavior: 'smooth' });
 
-    sendQuickReply(categoryMessages[category]);
-  }, 800);
+    // Send category query after scroll
+    setTimeout(() => {
+      const categoryMessages = {
+        education: "Show me education NGOs",
+        healthcare: "Healthcare organizations",
+        environment: "Environment NGOs",
+        women: "Women empowerment NGOs",
+        children: "Child welfare NGOs",
+        elderly: "Elderly care NGOs",
+        disability: "Disability support NGOs",
+        rural: "Rural development NGOs"
+      };
+
+      sendQuickReply(categoryMessages[category]);
+    }, 800);
+  } else if (resultsSection) {
+    // Categories Page behavior: Display results directly
+    displayCategoryResults(category);
+  }
+}
+
+// Display results on Categories page
+function displayCategoryResults(category) {
+  const allCategoriesSection = document.getElementById('all-categories-section');
+  const resultsSection = document.getElementById('category-results-section');
+  const resultsGrid = document.getElementById('category-results-grid');
+  const titleElement = document.getElementById('selected-category-title');
+
+  const categoryNames = {
+    education: "Education 📚",
+    healthcare: "Healthcare 🏥",
+    environment: "Environment 🌱",
+    women: "Women Empowerment 👩",
+    children: "Child Welfare 👶",
+    elderly: "Elderly Care 👴",
+    disability: "Disability Support ♿",
+    rural: "Rural Development 🏘️"
+  };
+
+  titleElement.textContent = `Explore ${categoryNames[category] || category} NGOs`;
+
+  // Get NGOs from database
+  const ngos = ngoDatabase[category] || [];
+
+  // Clear previous results
+  resultsGrid.innerHTML = '';
+
+  if (ngos.length === 0) {
+    resultsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: var(--spacing-xl);">No organizations found in this category yet.</p>';
+  } else {
+    ngos.forEach(ngo => {
+      const ngoCard = document.createElement('div');
+      ngoCard.className = 'ngo-result-card fade-in';
+      ngoCard.innerHTML = `
+        <h3>${ngo.name}</h3>
+        <div class="ngo-info-item">
+          <span class="ngo-info-label">📍 Location:</span>
+          <span class="ngo-info-value">${ngo.location}</span>
+        </div>
+        <div class="ngo-info-item">
+          <span class="ngo-info-label">🎯 Focus:</span>
+          <span class="ngo-info-value">${ngo.focus}</span>
+        </div>
+        <div class="ngo-info-item">
+          <span class="ngo-info-label">✨ Impact:</span>
+          <span class="ngo-info-value">${ngo.impact}</span>
+        </div>
+        <div class="ngo-info-item">
+          <span class="ngo-info-label">📧 Contact:</span>
+          <span class="ngo-info-value">${ngo.contact}</span>
+        </div>
+        <div class="ngo-card-actions">
+          <a href="mailto:${ngo.contact}" class="btn btn-sm btn-primary">Contact</a>
+          <a href="https://${ngo.website}" target="_blank" class="btn btn-sm btn-secondary">Website</a>
+        </div>
+      `;
+      resultsGrid.appendChild(ngoCard);
+    });
+  }
+
+  // Switch sections
+  allCategoriesSection.style.display = 'none';
+  resultsSection.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hide results and show all categories
+function hideResults() {
+  const allCategoriesSection = document.getElementById('all-categories-section');
+  const resultsSection = document.getElementById('category-results-section');
+
+  resultsSection.style.display = 'none';
+  allCategoriesSection.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Export for use in HTML
@@ -1233,4 +1316,5 @@ window.sendMessage = sendMessage;
 window.sendQuickReply = sendQuickReply;
 window.handleKeyPress = handleKeyPress;
 window.selectCategory = selectCategory;
+window.hideResults = hideResults;
 
