@@ -453,7 +453,6 @@ body {
     line-height: 1.5;
     border-left: 4px solid var(--accent);
 }
-}
 
 .message.user .message-content {
     background: linear-gradient(90deg, var(--primary) 0%, var(--success) 100%);
@@ -600,10 +599,14 @@ body {
 }
 
 @keyframes typing {
-    0%, 60%, 100% {
+
+    0%,
+    60%,
+    100% {
         opacity: 0.5;
         transform: translateY(0);
     }
+
     30% {
         opacity: 1;
         transform: translateY(-10px);
@@ -671,6 +674,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -747,4 +751,61 @@ body {
     .send-button {
         width: 100%;
     }
+}
+
+/* NGO RESULT CARDS (Categories Page) */
+.ngo-result-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    box-shadow: var(--shadow-sm);
+}
+
+.ngo-result-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+}
+
+.ngo-result-card h3 {
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+    border-bottom: 2px solid var(--secondary);
+    padding-bottom: var(--spacing-xs);
+    display: inline-block;
+    width: fit-content;
+}
+
+.ngo-info-item {
+    display: flex;
+    gap: var(--spacing-sm);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.ngo-info-label {
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 80px;
+}
+
+.ngo-info-value {
+    color: var(--text-secondary);
+}
+
+.ngo-card-actions {
+    margin-top: var(--spacing-md);
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.btn-sm {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
 }

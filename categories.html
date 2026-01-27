@@ -141,7 +141,7 @@
     </section>
 
     <!-- Categories Grid -->
-    <section class="section" style="padding-top: 0;">
+    <section id="all-categories-section" class="section" style="padding-top: 0;">
         <div class="container">
             <div class="categories-grid">
 
@@ -385,6 +385,22 @@
                     <button class="category-btn">Explore Rural Development NGOs →</button>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Results Section -->
+    <section id="category-results-section" class="section" style="display: none; background: rgba(0,0,0,0.02);">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: var(--spacing-xl);">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <h2 id="selected-category-title" style="margin-bottom: 0;">NGOs in Category</h2>
+                    <button class="btn btn-secondary" onclick="hideResults()">← Back to All Categories</button>
+                </div>
+            </div>
+            <div id="category-results-grid" class="categories-grid">
+                <!-- Results will be injected here -->
             </div>
         </div>
     </section>
