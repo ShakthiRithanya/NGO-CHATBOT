@@ -4,67 +4,33 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// Detect if text is in Tamil script
-function isTamilText(text) {
-    const tamilUnicodeRange = /[\u0B80-\u0BFF]/g;
-    return tamilUnicodeRange.test(text);
-}
+// NGO Database context for AI
+const ngoContext = `You are a helpful assistant for Tamil Nadu NGO Connect.
+Your primary goal is to help people discover and connect with NGOs across Tamil Nadu.
 
-// NGO Database context for AI with Tamil support
-const ngoContext = `You are an intelligent and culturally-aware assistant for Tamil Nadu NGO Connect, a platform that helps people discover and connect with NGOs across Tamil Nadu, India.
+KNOWLEDGE BASE:
+- You help with categories like Education, Healthcare, Environment, Women Empowerment, Child Welfare, Elderly Care, Disability Support, Rural Development, Animal Welfare, Disaster Relief, and Skill Development.
+- You cover all 38 districts of Tamil Nadu.
 
-You have access to a database of 78 NGOs across 11 categories:
-- Education (10 NGOs) - பணியாக்கம்
-- Healthcare (10 NGOs) - சுகாதாரம்
-- Environment (9 NGOs) - சுற்றுச்சூழல்
-- Women Empowerment (7 NGOs) - பெண் ஆதिকாரம்
-- Child Welfare (8 NGOs) - குழந்தை நலன்
-- Elderly Care (5 NGOs) - முதியவர் பராமரிப்பு
-- Disability Support (6 NGOs) - மாற்றுக்ற்றம் உதவி
-- Rural Development (7 NGOs) - கிராம மேம்பாடு
-- Animal Welfare (2 NGOs) - விலங்கு நலன்
-- Disaster Relief (2 NGOs) - பேரிடர் நிவாரணம்
-- Skill Development (2 NGOs) - திறன் மேம்பாடு
+BILINGUAL CAPABILITY:
+- You are fluent in both English and Tamil.
+- If the user asks in Tamil, reply in Tamil.
+- If the user asks in English, reply in English.
+- Use a warm, professional, and encouraging tone.
 
-The NGOs operate across 30+ districts in Tamil Nadu including Chennai, Coimbatore, Madurai, Tiruchirappalli, Vellore, and others.
+RESPONSE GUIDELINES:
+1. Full Details: For every NGO you mention, ALWAYS include their Focus, Location, Impact, Contact Email, and Website URL.
+2. Structure: Use bullet points and bold text for readability.
+3. Analytical Queries: If a user asks for "highest impact", "best", "most students", or "largest area", analyze the 'impact' and 'focus' fields in the provided database to determine the answer. Explain WHY you chose that NGO based on the data.
+4. Engaging: Use relevant emojis to make the conversation friendly.
+5. Accuracy: ONLY use the NGO data provided to you. If no NGOs match, suggest expanding the search.`;
 
-TAMIL LANGUAGE HANDLING:
-- Respond in the language the user writes in (Tamil, English, or mixed)
-- If query contains Tamil, provide responses that honor Tamil cultural context
-- Include Tamil terms and references when appropriate
-- Recognize Tamil month names, festival names, and local references
-- Be culturally sensitive to Tamil Nadu's social context
-
-When users ask about NGOs:
-1. Understand their intent (category, location, specific needs)
-2. Provide relevant NGO recommendations with full details
-3. Include contact details and location when appropriate
-4. Be helpful, friendly, and professional
-5. Use emojis to make responses engaging
-6. For Tamil queries: Use Tamil phrases and demonstrate cultural understanding
-
-Always respond in a structured, easy-to-read format.`;
-
-// Function to get AI response
+// Function to get AI response with multi-model fallback
 async function getGeminiResponse(userMessage, ngoDatabase) {
-    try {
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-        const isTamil = isTamilText(userMessage);
+    const modelsToTry = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-1.0-pro', 'gemini-pro'];
+    let lastError = null;
 
-        // Enhanced prompt with Tamil-specific instructions
-        const tamilInstructions = isTamil ? `
-IMPORTANT - User is writing in Tamil (or Tamil-English mix):
-- Respond in Tamil if the query is primarily in Tamil
-- Use appropriate Tamil culturally-sensitive language
-- Include relevant Tamil terminology for NGO categories
-- Show respect for Tamil cultural values and traditions
-- If mentioning locations, use Tamil place names where appropriate
-- Make references to Tamil Nadu's social development goals
-` : '';
-
-        const prompt = `${ngoContext}
-
-${tamilInstructions}
+    const prompt = `${ngoContext}
 
     User Query: "${userMessage}"
 
@@ -75,53 +41,49 @@ ${tamilInstructions}
 
     Please provide a helpful, structured response. If the user is asking about specific NGOs in a category or district, ONLY list those in the provided NGO Database. Do not mention NGOs not in the list. Format your response with clear sections and use emojis.`;
 
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
+    for (const modelName of modelsToTry) {
+        try {
+            console.log(`[GEMINI] Attempting ${modelName}...`);
+            const model = genAI.getGenerativeModel({ model: modelName });
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            const text = response.text();
 
-        return text;
-    } catch (error) {
-        console.error('Gemini AI Error:', error);
-        throw error;
+            if (text) {
+                console.log(`[GEMINI] SUCCESS with ${modelName}`);
+                return text;
+            }
+        } catch (error) {
+            console.error(`[GEMINI] Failed ${modelName}:`, error.message);
+            lastError = error;
+            // If it's a 404, we continue to the next model
+            if (error.message.includes('404') || error.message.includes('not found')) {
+                continue;
+            }
+            // If it's an API key error (403/401), or other critical error, we might want to stop, 
+            // but for now, we'll try all available names.
+        }
     }
+
+    throw lastError || new Error('All Gemini models failed');
 }
 
 // Function to get smart suggestions
 async function getSmartSuggestions(userMessage) {
     try {
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-        const isTamil = isTamilText(userMessage);
-
-        const languageNote = isTamil ? 
-            "Generate suggestions in Tamil if the original query is in Tamil, otherwise in English." : 
-            "";
-
+        // Try flash first for suggestions
+        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
         const prompt = `Based on this user query about NGOs in Tamil Nadu: "${userMessage}"
-
-${languageNote}
-
 Generate 3 helpful follow-up questions or suggestions the user might want to ask next. Keep them short (max 6 words each).
-
 Format as JSON array: ["suggestion 1", "suggestion 2", "suggestion 3"]`;
 
         const result = await model.generateContent(prompt);
         const response = await result.response;
         const text = response.text();
-
-        // Parse JSON from response
-        const suggestions = JSON.parse(text.replace(/```json\n?|\n?```/g, ''));
-        return suggestions;
+        return JSON.parse(text.replace(/```json\n?|\n?```/g, ''));
     } catch (error) {
-        console.error('Suggestions Error:', error);
-        // Return culturally relevant default suggestions
-        const isTamil = isTamilText(userMessage);
-        return isTamil ? 
-            ["அனைத்து பிரிவுகளைக் காட்டு", "மாவட்டப்படி தேடு", "தன்னார்வலராக குறிப்பிட"] :
-            [
-                "Show all categories",
-                "Search by district",
-                "How to volunteer?"
-            ];
+        // Fallback suggestions
+        return ["Show all categories", "Search by district", "How to volunteer?"];
     }
 }
 
