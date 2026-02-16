@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Tamil Nadu NGO Connect</title>
+    <link rel="stylesheet" href="style.css?v=20260101">
+    <style>
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .event-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-light);
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .event-poster {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .event-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .event-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--green-light);
+            color: var(--primary-dark);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-date {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .event-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-location {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .event-footer {
+            padding: 1rem 1.5rem;
+            background: var(--bg-light);
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .generate-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+            border-radius: var(--radius-xl);
+            margin-bottom: 4rem;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generate-section::after {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 5rem;
+            opacity: 0.2;
+        }
+
+        .generate-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .generate-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: var(--radius-xl);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .generate-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .generate-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .generate-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-lg);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .generate-btn:hover {
+            background: #e65100;
+            transform: scale(1.05);
+        }
+
+        .generate-btn:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #events-container {
+            min-height: 400px;
+            position: relative;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html" class="logo">
+                    🤝 TN NGO Connect
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="categories.html" class="nav-link">Categories</a></li>
+                    <li><a href="events.html" class="nav-link active">Events</a></li>
+                    <li><a href="chat.html" class="nav-link">Chat</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main style="padding-top: 120px;">
+        <div class="container">
+            <!-- AI Generator Section -->
+            <section class="generate-section">
+                <div class="generate-container">
+                    <h1>✨ AI Event Scheduler</h1>
+                    <p>Tell our AI what kind of event you want to organize, and it will handle the scheduling,
+                        descriptions, and posters!</p>
+                    <div class="generate-input-group">
+                        <input type="text" id="event-prompt" class="generate-input"
+                            placeholder="e.g., A tree plantation drive in Madurai next weekend for students">
+                        <button id="generate-btn" class="generate-btn">
+                            <span class="loading-spinner"></span>
+                            <span class="btn-text">Generate Event →</span>
+                        </button>
+                    </div>
+                    <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Try: "Healthcare camp in Chennai",
+                        "Education workshop for kids", "Beach cleanup at Marina"</p>
+                </div>
+            </section>
+
+            <!-- Events List Section -->
+            <section class="section">
+                <div class="section-header">
+                    <h2>Upcoming NGO Events</h2>
+                    <p>Join these initiatives and be the change you want to see in Tamil Nadu</p>
+                </div>
+
+                <div id="events-loader" style="text-align: center; display: none; padding: 2rem;">
+                    <div class="typing-dots" style="justify-content: center;"><span></span><span></span><span></span>
+                    </div>
+                </div>
+
+                <div id="events-container" class="events-grid">
+                    <!-- Events will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Registration Modal -->
+    <div id="register-modal" class="modal-overlay"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center;">
+        <div class="modal-content"
+            style="background: white; padding: 2.5rem; border-radius: 20px; max-width: 500px; width: 90%; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+            <button id="close-modal"
+                style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light);">&times;</button>
+            <h2 style="margin-bottom: 0.5rem; color: var(--primary-dark);">Register for Event</h2>
+            <p id="modal-event-title" style="margin-bottom: 2rem; color: var(--secondary); font-weight: 600;"></p>
+
+            <form id="registration-form">
+                <input type="hidden" id="modal-event-id">
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name</label>
+                    <input type="text" id="reg-name" required
+                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-light); border-radius: 10px; outline: none;"
+                        placeholder="Enter your full name">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
+                    <input type="email" id="reg-email" required
+                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-light); border-radius: 10px; outline: none;"
+                        placeholder="name@example.com">
+                </div>
+                <div style="margin-bottom: 2rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Phone Number</label>
+                    <input type="tel" id="reg-phone"
+                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--border-light); border-radius: 10px; outline: none;"
+                        placeholder="+91 XXXXX XXXXX">
+                </div>
+                <button type="submit" class="btn btn-primary"
+                    style="width: 100%; padding: 1rem; border-radius: 10px; font-weight: 700;">Confirm
+                    Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tamil Nadu NGO Connect</h4>
+                    <p>Empowering communities through meaningful connections.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="chat.html">Chat</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📧 contact@tnngoconnect.org</p>
+                    <p>📱 +91 98765 43210</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tamil Nadu NGO Connect. Made with ❤️ for Tamil Nadu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="api.js"></script>
+    <script>
+        const eventsContainer = document.getElementById('events-container');
+        const promptInput = document.getElementById('event-prompt');
+        const generateBtn = document.getElementById('generate-btn');
+        const loader = document.getElementById('events-loader');
+
+        // Modal Elements
+        const modal = document.getElementById('register-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const registrationForm = document.getElementById('registration-form');
+        const modalEventTitle = document.getElementById('modal-event-title');
+        const modalEventId = document.getElementById('modal-event-id');
+
+        // Load events on startup
+        async function loadEvents() {
+            showLoader(true);
+            try {
+                const events = await window.api.getEvents();
+
+                if (!events || events.length === 0) {
+                    eventsContainer.innerHTML = '<div class="empty-state"><h3>No events found. Be the first to schedule one!</h3></div>';
+                    return;
+                }
+
+                eventsContainer.innerHTML = events.map(event => createEventCard(event)).join('');
+
+                // Add event listeners to register buttons
+                document.querySelectorAll('.register-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const eventId = btn.getAttribute('data-id');
+                        const eventTitle = btn.getAttribute('data-title');
+                        openRegistrationModal(eventId, eventTitle);
+                    });
+                });
+            } catch (error) {
+                console.error('Error loading events:', error);
+                eventsContainer.innerHTML = '<div class="empty-state"><h3>Error loading events. Please try again later.</h3></div>';
+            } finally {
+                showLoader(false);
+            }
+        }
+
+        function createEventCard(event) {
+            const date = new Date(event.date);
+            const formattedDate = date.toLocaleDateString('en-IN', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            return `
+            <div class="event-card fade-in">
+                <img src="${event.posterUrl}" alt="${event.title}" class="event-poster">
+                <div class="event-content">
+                    <span class="event-category">${event.category}</span>
+                    <h3 class="event-title">${event.title}</h3>
+                    <div class="event-date">
+                        <span>📅</span> ${formattedDate}
+                    </div>
+                    <p class="event-description">${event.description}</p>
+                    <div class="event-location">
+                        <span>📍</span> ${event.location}
+                    </div>
+                </div>
+                <div class="event-footer">
+                    ${event.aiGenerated ? '<div class="ai-badge">✨ AI Generated</div>' : '<div></div>'}
+                    <button class="btn btn-secondary register-btn" 
+                        data-id="${event.id}" 
+                        data-title="${event.title}"
+                        style="padding: 0.5rem 1rem; font-size: 0.8rem;">Register Now</button>
+                </div>
+            </div>
+        `;
+        }
+
+        function openRegistrationModal(id, title) {
+            modalEventId.value = id;
+            modalEventTitle.textContent = title;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+        }
+
+        function closeRegistrationModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            registrationForm.reset();
+        }
+
+        closeModalBtn.addEventListener('click', closeRegistrationModal);
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) closeRegistrationModal();
+        });
+
+        registrationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const eventId = modalEventId.value;
+            const userData = {
+                name: document.getElementById('reg-name').value,
+                email: document.getElementById('reg-email').value,
+                phone: document.getElementById('reg-phone').value
+            };
+
+            const submitBtn = registrationForm.querySelector('button');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registering...';
+
+            try {
+                const result = await window.api.registerForEvent(eventId, userData);
+                if (result.success) {
+                    alert('🎉 Success! You have been registered for ' + modalEventTitle.textContent);
+                    closeRegistrationModal();
+                } else {
+                    alert('Error: ' + result.message);
+                }
+            } catch (error) {
+                alert('Something went wrong during registration.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Confirm Registration';
+            }
+        });
+
+        function showLoader(show) {
+            loader.style.display = show ? 'block' : 'none';
+            if (show) eventsContainer.innerHTML = '';
+        }
+
+        async function handleGenerate() {
+            const prompt = promptInput.value.trim();
+            if (!prompt) return;
+
+            generateBtn.disabled = true;
+            generateBtn.querySelector('.loading-spinner').style.display = 'block';
+            generateBtn.querySelector('.btn-text').textContent = 'Generating...';
+
+            try {
+                const result = await window.api.generateEvent(prompt);
+
+                if (result && !result.error) {
+                    promptInput.value = '';
+                    await loadEvents();
+                    // Scroll to events list
+                    eventsContainer.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    alert('Failed to generate event. Please try a more specific prompt.');
+                }
+            } catch (error) {
+                console.error('Error generating event:', error);
+                alert('Something went wrong. Make sure the server is running!');
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.querySelector('.loading-spinner').style.display = 'none';
+                generateBtn.querySelector('.btn-text').textContent = 'Generate Event →';
+            }
+        }
+
+        generateBtn.addEventListener('click', handleGenerate);
+        promptInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleGenerate();
+        });
+
+        // Initial load
+        loadEvents();
+    </script>
+</body>
+
+</html>

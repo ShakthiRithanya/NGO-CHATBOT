@@ -12,23 +12,22 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log('✅ MongoDB Connected Successfully'))
-    .catch((err) => console.error('❌ MongoDB Connection Error:', err));
+const { init } = require('./database');
+
+// Initialize Database
+init();
 
 // Import Routes
 const ngoRoutes = require('./routes/ngo.routes');
 const chatRoutes = require('./routes/chat.routes');
 const analyticsRoutes = require('./routes/analytics.routes');
+const eventRoutes = require('./routes/event.routes');
 
 // Use Routes
 app.use('/api/ngos', ngoRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/analytics', analyticsRoutes);
+app.use('/api/events', eventRoutes);
 
 // Health Check Route
 app.get('/api/health', (req, res) => {
@@ -48,7 +47,8 @@ app.get('/', (req, res) => {
             health: '/api/health',
             ngos: '/api/ngos',
             chat: '/api/chat',
-            analytics: '/api/analytics'
+            analytics: '/api/analytics',
+            events: '/api/events'
         }
     });
 });

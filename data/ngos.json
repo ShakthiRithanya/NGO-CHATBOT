@@ -1,0 +1,467 @@
+[
+    {
+        "name": "Akshaya Patra Foundation",
+        "location": "Chennai, Madurai, Coimbatore",
+        "category": "education",
+        "focus": "Mid-day meal program for school children",
+        "impact": "Serves 1.8 million children daily across Tamil Nadu",
+        "contact": "chennai@akshayapatra.org",
+        "website": "www.akshayapatra.org",
+        "districts": [
+            "Chennai",
+            "Madurai",
+            "Coimbatore",
+            "Tiruchirappalli"
+        ]
+    },
+    {
+        "name": "Teach for India",
+        "location": "Chennai",
+        "category": "education",
+        "focus": "Educational equity through fellowship program",
+        "impact": "Reaching 10,000+ students in underserved communities",
+        "contact": "chennai@teachforindia.org",
+        "website": "www.teachforindia.org",
+        "districts": [
+            "Chennai"
+        ]
+    },
+    {
+        "name": "Pratham Tamil Nadu",
+        "location": "Chennai, Tiruvallur, Kanchipuram",
+        "category": "education",
+        "focus": "Improving reading and math skills for children",
+        "impact": "Impacting 75,000+ children annually",
+        "contact": "tamilnadu@pratham.org",
+        "website": "www.pratham.org",
+        "districts": [
+            "Chennai",
+            "Tiruvallur",
+            "Kanchipuram"
+        ]
+    },
+    {
+        "name": "Isha Vidhya",
+        "location": "Coimbatore, Erode, Tirupur",
+        "category": "education",
+        "focus": "Rural education and computer literacy",
+        "impact": "Operating 206 schools across Tamil Nadu",
+        "contact": "info@ishavidhya.org",
+        "website": "www.ishavidhya.org",
+        "districts": [
+            "Coimbatore",
+            "Erode",
+            "Tirupur",
+            "Nilgiris"
+        ]
+    },
+    {
+        "name": "Nanban Foundation",
+        "location": "Chennai",
+        "category": "education",
+        "focus": "Education and skill development for underprivileged",
+        "impact": "Supporting 5,000+ students with scholarships",
+        "contact": "info@nanbanfoundation.org",
+        "website": "www.nanbanfoundation.org",
+        "districts": [
+            "Chennai",
+            "Tiruvallur"
+        ]
+    },
+    {
+        "name": "Sevalaya",
+        "location": "Tiruvallur",
+        "category": "education",
+        "focus": "Education, healthcare and community development",
+        "impact": "Educating 2,000+ rural children",
+        "contact": "sevalayakasuva@gmail.com",
+        "website": "www.sevalaya.org",
+        "districts": [
+            "Tiruvallur",
+            "Chennai"
+        ]
+    },
+    {
+        "name": "Bhumi",
+        "location": "Chennai, Coimbatore",
+        "category": "education",
+        "focus": "Volunteer-driven education support",
+        "impact": "Reaching 15,000+ children through volunteers",
+        "contact": "chennai@bhumi.ngo",
+        "website": "www.bhumi.ngo",
+        "districts": [
+            "Chennai",
+            "Coimbatore",
+            "Madurai"
+        ]
+    },
+    {
+        "name": "Agaram Foundation",
+        "location": "Chennai",
+        "category": "education",
+        "focus": "Higher education scholarships for rural students",
+        "impact": "Supporting 10,000+ students with college education",
+        "contact": "info@agaramfoundation.org",
+        "website": "www.agaramfoundation.org",
+        "districts": [
+            "Chennai",
+            "Tiruvallur",
+            "Kanchipuram"
+        ]
+    },
+    {
+        "name": "Aseema Charitable Trust",
+        "location": "Chennai",
+        "category": "education",
+        "focus": "Education for underprivileged children",
+        "impact": "Educating 3,000+ children",
+        "contact": "info@aseema.org",
+        "website": "www.aseema.org",
+        "districts": [
+            "Chennai"
+        ]
+    },
+    {
+        "name": "Shanti Bhavan",
+        "location": "Vellore",
+        "category": "education",
+        "focus": "Residential education for disadvantaged children",
+        "impact": "Transforming lives of 300+ children",
+        "contact": "info@shantibhavan.org",
+        "website": "www.shantibhavan.org",
+        "districts": [
+            "Vellore"
+        ]
+    },
+    {
+        "name": "Aravind Eye Care System",
+        "location": "Madurai, Coimbatore, Tirunelveli",
+        "category": "healthcare",
+        "focus": "Eye care and cataract surgeries",
+        "impact": "Performed 5+ million eye surgeries, 60% free",
+        "contact": "info@aravind.org",
+        "website": "www.aravind.org",
+        "districts": [
+            "Madurai",
+            "Coimbatore",
+            "Tirunelveli"
+        ]
+    },
+    {
+        "name": "TANKER Foundation",
+        "location": "Chennai",
+        "category": "healthcare",
+        "focus": "Kidney disease awareness and dialysis support",
+        "impact": "Providing free dialysis to 1,500+ patients monthly",
+        "contact": "info@tankerfoundation.org",
+        "website": "www.tankerfoundation.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram",
+            "Tiruvallur"
+        ]
+    },
+    {
+        "name": "Sankara Nethralaya",
+        "location": "Chennai",
+        "category": "healthcare",
+        "focus": "Comprehensive eye care services",
+        "impact": "Treating 2,000+ patients daily",
+        "contact": "info@sankaranethralaya.org",
+        "website": "www.sankaranethralaya.org",
+        "districts": [
+            "Chennai"
+        ]
+    },
+    {
+        "name": "Ganga Hospital Foundation",
+        "location": "Coimbatore",
+        "category": "healthcare",
+        "focus": "Trauma care and reconstructive surgery",
+        "impact": "Treating 60,000+ patients annually",
+        "contact": "info@gangahospital.com",
+        "website": "www.gangahospital.com",
+        "districts": [
+            "Coimbatore",
+            "Tirupur",
+            "Erode"
+        ]
+    },
+    {
+        "name": "Arogya World",
+        "location": "Chennai",
+        "category": "healthcare",
+        "focus": "Diabetes and chronic disease prevention",
+        "impact": "Reaching 1 million+ people with health education",
+        "contact": "info@arogyaworld.org",
+        "website": "www.arogyaworld.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram"
+        ]
+    },
+    {
+        "name": "Environmentalist Foundation of India (EFI)",
+        "location": "Chennai",
+        "category": "environment",
+        "focus": "Lake and water body restoration",
+        "impact": "Restored 95+ water bodies across Tamil Nadu",
+        "contact": "efi@efiglobal.org",
+        "website": "www.efiglobal.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram",
+            "Tiruvallur",
+            "Chengalpattu"
+        ]
+    },
+    {
+        "name": "Isha Outreach - Project GreenHands",
+        "location": "Coimbatore",
+        "category": "environment",
+        "focus": "Tree plantation and green cover",
+        "impact": "Planted 35+ million trees across Tamil Nadu",
+        "contact": "pgh@ishafoundation.org",
+        "website": "www.projectgreenhands.org",
+        "districts": [
+            "Coimbatore",
+            "Erode",
+            "Tirupur",
+            "Nilgiris",
+            "Karur"
+        ]
+    },
+    {
+        "name": "Care Earth Trust",
+        "location": "Chennai",
+        "category": "environment",
+        "focus": "Wildlife conservation and biodiversity",
+        "impact": "Protecting 60+ endangered species",
+        "contact": "info@careearthtrust.org",
+        "website": "www.careearthtrust.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram",
+            "Tiruvallur"
+        ]
+    },
+    {
+        "name": "Nizhal",
+        "location": "Chennai",
+        "category": "environment",
+        "focus": "Urban greening and tree conservation",
+        "impact": "Planted 150,000+ trees in urban areas",
+        "contact": "info@nizhal.org",
+        "website": "www.nizhal.org",
+        "districts": [
+            "Chennai"
+        ]
+    },
+    {
+        "name": "SEWA Tamil Nadu",
+        "location": "Chennai, Tiruchirappalli, Thanjavur",
+        "category": "women",
+        "focus": "Women's economic empowerment and livelihoods",
+        "impact": "Supporting 30,000+ women entrepreneurs",
+        "contact": "sewa.tn@gmail.com",
+        "website": "www.sewa.org",
+        "districts": [
+            "Chennai",
+            "Tiruchirappalli",
+            "Thanjavur",
+            "Madurai"
+        ]
+    },
+    {
+        "name": "Working Women's Forum",
+        "location": "Chennai",
+        "category": "women",
+        "focus": "Microfinance and women's rights advocacy",
+        "impact": "Empowering 120,000+ women",
+        "contact": "info@workingwomensforum.org",
+        "website": "www.workingwomensforum.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram",
+            "Tiruvallur"
+        ]
+    },
+    {
+        "name": "Hand in Hand India",
+        "location": "Chennai, Kanchipuram",
+        "category": "women",
+        "focus": "Women's self-help groups and microfinance",
+        "impact": "Empowering 500,000+ women",
+        "contact": "info@hihseed.org",
+        "website": "www.hihseed.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram",
+            "Tiruvallur",
+            "Villupuram"
+        ]
+    },
+    {
+        "name": "CRY - Child Rights and You",
+        "location": "Chennai",
+        "category": "children",
+        "focus": "Child rights, education and protection",
+        "impact": "Impacting 250,000+ children",
+        "contact": "chennai@cry.org",
+        "website": "www.cry.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram",
+            "Tiruvallur",
+            "Vellore"
+        ]
+    },
+    {
+        "name": "Udavum Karangal",
+        "location": "Chennai",
+        "category": "children",
+        "focus": "Orphan care, rehabilitation and education",
+        "impact": "Caring for 1,200+ children and elderly",
+        "contact": "info@udavumkarangal.org",
+        "website": "www.udavumkarangal.org",
+        "districts": [
+            "Chennai"
+        ]
+    },
+    {
+        "name": "Bala Mandir Kamaraj",
+        "location": "Chennai",
+        "category": "children",
+        "focus": "Orphanage and child education",
+        "impact": "Caring for 500+ orphaned children",
+        "contact": "info@balamandir.org",
+        "website": "www.balamandir.org",
+        "districts": [
+            "Chennai"
+        ]
+    },
+    {
+        "name": "HelpAge India",
+        "location": "Chennai, Madurai, Coimbatore",
+        "category": "elderly",
+        "focus": "Elderly care, healthcare and advocacy",
+        "impact": "Serving 60,000+ senior citizens",
+        "contact": "chennai@helpageindia.org",
+        "website": "www.helpageindia.org",
+        "districts": [
+            "Chennai",
+            "Madurai",
+            "Coimbatore",
+            "Tiruchirappalli"
+        ]
+    },
+    {
+        "name": "Dignity Foundation",
+        "location": "Chennai",
+        "category": "elderly",
+        "focus": "Active ageing and elderly empowerment",
+        "impact": "Engaging 15,000+ senior citizens",
+        "contact": "chennai@dignityfoundation.com",
+        "website": "www.dignityfoundation.com",
+        "districts": [
+            "Chennai",
+            "Kanchipuram"
+        ]
+    },
+    {
+        "name": "Vidya Sagar",
+        "location": "Chennai",
+        "category": "disability",
+        "focus": "Cerebral palsy and multiple disabilities support",
+        "impact": "Supporting 2,500+ children with disabilities",
+        "contact": "info@vidyasagar.org",
+        "website": "www.vidyasagar.org",
+        "districts": [
+            "Chennai"
+        ]
+    },
+    {
+        "name": "Amar Seva Sangam",
+        "location": "Ayikudy, Tirunelveli",
+        "category": "disability",
+        "focus": "Comprehensive disability rehabilitation",
+        "impact": "Serving 12,000+ persons with disabilities",
+        "contact": "info@amarseva.org",
+        "website": "www.amarseva.org",
+        "districts": [
+            "Tirunelveli",
+            "Thoothukudi"
+        ]
+    },
+    {
+        "name": "DHAN Foundation",
+        "location": "Madurai",
+        "category": "rural",
+        "focus": "Rural development, livelihoods and water management",
+        "impact": "Reaching 6 million rural families",
+        "contact": "info@dhan.org",
+        "website": "www.dhan.org",
+        "districts": [
+            "Madurai",
+            "Dindigul",
+            "Theni",
+            "Ramanathapuram",
+            "Sivaganga"
+        ]
+    },
+    {
+        "name": "MYRADA",
+        "location": "Dharmapuri",
+        "category": "rural",
+        "focus": "Rural community development and SHGs",
+        "impact": "Supporting 150,000+ rural families",
+        "contact": "myrada@myrada.org",
+        "website": "www.myrada.org",
+        "districts": [
+            "Dharmapuri",
+            "Krishnagiri"
+        ]
+    },
+    {
+        "name": "Blue Cross of India",
+        "location": "Chennai",
+        "category": "animal_welfare",
+        "focus": "Animal rescue and welfare",
+        "impact": "Rescuing 50,000+ animals annually",
+        "contact": "info@bluecrossofindia.org",
+        "website": "www.bluecrossofindia.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram"
+        ]
+    },
+    {
+        "name": "Goonj",
+        "location": "Chennai",
+        "category": "disaster_relief",
+        "focus": "Disaster relief and rural development",
+        "impact": "Reaching 500,000+ people in disasters",
+        "contact": "chennai@goonj.org",
+        "website": "www.goonj.org",
+        "districts": [
+            "Chennai",
+            "Kanchipuram",
+            "Tiruvallur"
+        ]
+    },
+    {
+        "name": "Don Bosco Tech Society",
+        "location": "Chennai, Madurai, Coimbatore",
+        "category": "skill_development",
+        "focus": "Skill training and employment",
+        "impact": "Training 20,000+ youth annually",
+        "contact": "info@donboscotech.in",
+        "website": "www.donboscotech.in",
+        "districts": [
+            "Chennai",
+            "Madurai",
+            "Coimbatore",
+            "Tiruchirappalli"
+        ]
+    }
+]

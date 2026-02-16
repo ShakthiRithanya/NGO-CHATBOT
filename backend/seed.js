@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const NGO = require('./models/NGO.model');
+const { db, init } = require('./database');
 require('dotenv').config();
 
 // Sample NGO data
@@ -19,7 +18,7 @@ const ngoData = [
         },
         website: "https://www.akshayapatra.org",
         description: "Provides nutritious mid-day meals to school children, ensuring better nutrition and increased school attendance.",
-        verified: true,
+        verified: 1,
         rating: 4.8
     },
     {
@@ -34,11 +33,9 @@ const ngoData = [
             email: "chennai@teachforindia.org"
         },
         website: "https://www.teachforindia.org",
-        verified: true,
+        verified: 1,
         rating: 4.7
     },
-
-    // Healthcare NGOs
     {
         name: "Aravind Eye Hospital",
         category: "healthcare",
@@ -52,7 +49,7 @@ const ngoData = [
             address: "Aravind Eye Hospital, Madurai - 625020"
         },
         website: "https://www.aravind.org",
-        verified: true,
+        verified: 1,
         rating: 4.9
     },
     {
@@ -67,11 +64,9 @@ const ngoData = [
             email: "info@snmail.org"
         },
         website: "https://www.sankaranethralaya.org",
-        verified: true,
+        verified: 1,
         rating: 4.8
     },
-
-    // Environment NGOs
     {
         name: "Environmentalist Foundation of India",
         category: "environment",
@@ -84,7 +79,7 @@ const ngoData = [
             email: "contact@efi.org.in"
         },
         website: "https://www.efi.org.in",
-        verified: true,
+        verified: 1,
         rating: 4.7
     },
     {
@@ -99,11 +94,9 @@ const ngoData = [
             email: "info@nizhal.org"
         },
         website: "https://www.nizhal.org",
-        verified: true,
+        verified: 1,
         rating: 4.6
     },
-
-    // Women Empowerment NGOs
     {
         name: "SEWA Tamil Nadu",
         category: "women",
@@ -116,11 +109,9 @@ const ngoData = [
             email: "info@sewatamilnadu.org"
         },
         website: "https://www.sewatamilnadu.org",
-        verified: true,
+        verified: 1,
         rating: 4.5
     },
-
-    // Children NGOs
     {
         name: "CRY - Child Rights and You",
         category: "children",
@@ -133,11 +124,9 @@ const ngoData = [
             email: "chennai@cry.org"
         },
         website: "https://www.cry.org",
-        verified: true,
+        verified: 1,
         rating: 4.7
     },
-
-    // Elderly Care NGOs
     {
         name: "HelpAge India",
         category: "elderly",
@@ -150,11 +139,9 @@ const ngoData = [
             email: "chennai@helpageindia.org"
         },
         website: "https://www.helpageindia.org",
-        verified: true,
+        verified: 1,
         rating: 4.6
     },
-
-    // Disability Support NGOs
     {
         name: "Vidya Sagar",
         category: "disability",
@@ -167,11 +154,9 @@ const ngoData = [
             email: "info@vidyasagar.org.in"
         },
         website: "https://www.vidyasagar.org.in",
-        verified: true,
+        verified: 1,
         rating: 4.8
     },
-
-    // Rural Development NGOs
     {
         name: "DHAN Foundation",
         category: "rural",
@@ -184,41 +169,36 @@ const ngoData = [
             email: "info@dhan.org"
         },
         website: "https://www.dhan.org",
-        verified: true,
+        verified: 1,
         rating: 4.7
     }
 ];
 
-// Connect to MongoDB and seed data
-async function seedDatabase() {
+function seedDatabase() {
     try {
-        await mongoose.connect(process.env.MONGODB_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-
-        console.log('✅ Connected to MongoDB');
+        init();
+        console.log('✅ SQLite Database Initialized');
 
         // Clear existing data
-        await NGO.deleteMany({});
+        db.prepare('DELETE FROM ngos').run();
         console.log('🗑️  Cleared existing NGO data');
 
         // Insert new data
-        await NGO.insertMany(ngoData);
-        console.log(`✅ Seeded ${ngoData.length} NGOs successfully!`);
+        const insert = db.prepare(`
+            INSERT INTO ngos (name, category, location, districts, focus, impact, phone, email, address, website, description, verified, rating)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
 
-        // Display summary
-        const categories = await NGO.distinct('category');
-        console.log(`\n📊 Summary:`);
-        console.log(`   Total NGOs: ${ngoData.length}`);
-        console.log(`   Categories: ${categories.join(', ')}`);
-
-        for (const category of categories) {
-            const count = await NGO.countDocuments({ category });
-            console.log(`   - ${category}: ${count} NGOs`);
+        for (const ngo of ngoData) {
+            insert.run(
+                ngo.name, ngo.category, ngo.location, JSON.stringify(ngo.districts),
+                ngo.focus, ngo.impact, ngo.contact.phone, ngo.contact.email,
+                ngo.contact.address || null, ngo.website, ngo.description || null,
+                ngo.verified, ngo.rating
+            );
         }
 
-        mongoose.connection.close();
+        console.log(`✅ Seeded ${ngoData.length} NGOs successfully!`);
         console.log('\n✅ Database seeding completed!');
         process.exit(0);
     } catch (error) {

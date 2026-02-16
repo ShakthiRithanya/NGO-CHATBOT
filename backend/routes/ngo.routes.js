@@ -1,15 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const NGO = require('../models/NGO.model');
+const { db } = require('../database');
 
 // GET all NGOs
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
     try {
-        const ngos = await NGO.find();
+        const ngos = db.prepare('SELECT * FROM ngos').all();
+        // Parse districts if stored as JSON string
+        const parsedNgos = ngos.map(ngo => ({
+            ...ngo,
+            districts: JSON.parse(ngo.districts || '[]'),
+            contact: {
+                phone: ngo.phone,
+                email: ngo.email,
+                address: ngo.address
+            }
+        }));
+
         res.json({
             success: true,
-            count: ngos.length,
-            data: ngos
+            count: parsedNgos.length,
+            data: parsedNgos
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -17,16 +28,26 @@ router.get('/', async (req, res) => {
 });
 
 // GET NGOs by category
-router.get('/category/:category', async (req, res) => {
+router.get('/category/:category', (req, res) => {
     try {
         const { category } = req.params;
-        const ngos = await NGO.find({ category: category.toLowerCase() });
+        const ngos = db.prepare('SELECT * FROM ngos WHERE category = ?').all(category.toLowerCase());
+
+        const parsedNgos = ngos.map(ngo => ({
+            ...ngo,
+            districts: JSON.parse(ngo.districts || '[]'),
+            contact: {
+                phone: ngo.phone,
+                email: ngo.email,
+                address: ngo.address
+            }
+        }));
 
         res.json({
             success: true,
             category: category,
-            count: ngos.length,
-            data: ngos
+            count: parsedNgos.length,
+            data: parsedNgos
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -34,18 +55,26 @@ router.get('/category/:category', async (req, res) => {
 });
 
 // GET NGOs by district
-router.get('/district/:district', async (req, res) => {
+router.get('/district/:district', (req, res) => {
     try {
         const { district } = req.params;
-        const ngos = await NGO.find({
-            districts: { $regex: new RegExp(district, 'i') }
-        });
+        const ngos = db.prepare('SELECT * FROM ngos WHERE districts LIKE ?').all(`%${district}%`);
+
+        const parsedNgos = ngos.map(ngo => ({
+            ...ngo,
+            districts: JSON.parse(ngo.districts || '[]'),
+            contact: {
+                phone: ngo.phone,
+                email: ngo.email,
+                address: ngo.address
+            }
+        }));
 
         res.json({
             success: true,
             district: district,
-            count: ngos.length,
-            data: ngos
+            count: parsedNgos.length,
+            data: parsedNgos
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -53,9 +82,9 @@ router.get('/district/:district', async (req, res) => {
 });
 
 // GET NGO by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', (req, res) => {
     try {
-        const ngo = await NGO.findById(req.params.id);
+        const ngo = db.prepare('SELECT * FROM ngos WHERE id = ?').get(req.params.id);
 
         if (!ngo) {
             return res.status(404).json({
@@ -64,9 +93,19 @@ router.get('/:id', async (req, res) => {
             });
         }
 
+        const parsedNgo = {
+            ...ngo,
+            districts: JSON.parse(ngo.districts || '[]'),
+            contact: {
+                phone: ngo.phone,
+                email: ngo.email,
+                address: ngo.address
+            }
+        };
+
         res.json({
             success: true,
-            data: ngo
+            data: parsedNgo
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });
@@ -74,15 +113,22 @@ router.get('/:id', async (req, res) => {
 });
 
 // POST create new NGO
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
     try {
-        const ngo = new NGO(req.body);
-        await ngo.save();
+        const { name, category, location, districts, focus, impact, contact, website, description } = req.body;
+        const info = db.prepare(`
+            INSERT INTO ngos (name, category, location, districts, focus, impact, phone, email, address, website, description)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(
+            name, category, location, JSON.stringify(districts), focus, impact,
+            contact?.phone, contact?.email, contact?.address,
+            website, description
+        );
 
         res.status(201).json({
             success: true,
             message: 'NGO created successfully',
-            data: ngo
+            data: { id: info.lastInsertRowid, ...req.body }
         });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
@@ -90,15 +136,21 @@ router.post('/', async (req, res) => {
 });
 
 // PUT update NGO
-router.put('/:id', async (req, res) => {
+router.put('/:id', (req, res) => {
     try {
-        const ngo = await NGO.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true, runValidators: true }
+        const { name, category, location, districts, focus, impact, contact, website, description } = req.body;
+        const info = db.prepare(`
+            UPDATE ngos 
+            SET name = ?, category = ?, location = ?, districts = ?, focus = ?, impact = ?, 
+                phone = ?, email = ?, address = ?, website = ?, description = ?
+            WHERE id = ?
+        `).run(
+            name, category, location, JSON.stringify(districts), focus, impact,
+            contact?.phone, contact?.email, contact?.address,
+            website, description, req.params.id
         );
 
-        if (!ngo) {
+        if (info.changes === 0) {
             return res.status(404).json({
                 success: false,
                 message: 'NGO not found'
@@ -107,8 +159,7 @@ router.put('/:id', async (req, res) => {
 
         res.json({
             success: true,
-            message: 'NGO updated successfully',
-            data: ngo
+            message: 'NGO updated successfully'
         });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
@@ -116,11 +167,11 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE NGO
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', (req, res) => {
     try {
-        const ngo = await NGO.findByIdAndDelete(req.params.id);
+        const info = db.prepare('DELETE FROM ngos WHERE id = ?').run(req.params.id);
 
-        if (!ngo) {
+        if (info.changes === 0) {
             return res.status(404).json({
                 success: false,
                 message: 'NGO not found'
@@ -137,7 +188,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Search NGOs
-router.get('/search/query', async (req, res) => {
+router.get('/search/query', (req, res) => {
     try {
         const { q } = req.query;
 
@@ -148,15 +199,26 @@ router.get('/search/query', async (req, res) => {
             });
         }
 
-        const ngos = await NGO.find({
-            $text: { $search: q }
-        });
+        const ngos = db.prepare(`
+            SELECT * FROM ngos 
+            WHERE name LIKE ? OR focus LIKE ? OR description LIKE ?
+        `).all(`%${q}%`, `%${q}%`, `%${q}%`);
+
+        const parsedNgos = ngos.map(ngo => ({
+            ...ngo,
+            districts: JSON.parse(ngo.districts || '[]'),
+            contact: {
+                phone: ngo.phone,
+                email: ngo.email,
+                address: ngo.address
+            }
+        }));
 
         res.json({
             success: true,
             query: q,
-            count: ngos.length,
-            data: ngos
+            count: parsedNgos.length,
+            data: parsedNgos
         });
     } catch (error) {
         res.status(500).json({ success: false, error: error.message });

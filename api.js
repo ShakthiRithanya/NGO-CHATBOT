@@ -116,6 +116,52 @@ const api = {
             console.error('Error checking health:', error);
             return { success: false, error: error.message };
         }
+    },
+
+    // Event Endpoints
+    getEvents: async () => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/events`);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            return [];
+        }
+    },
+
+    generateEvent: async (prompt) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/events/generate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt }),
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error generating event:', error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    registerForEvent: async (eventId, userData) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/events/${eventId}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error registering for event:', error);
+            return { success: false, error: error.message };
+        }
     }
 };
 
